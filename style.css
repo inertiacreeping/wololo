@@ -1,3 +1,9 @@
+.header-gif {
+    max-height: 80px;
+    display: block;
+    margin: 0 auto 20px; /* Center the image and add some margin below */
+}
+
 body {
     background-color: #ffe4e1; /* light red */
     font-family: 'Courier New', Courier, monospace;
