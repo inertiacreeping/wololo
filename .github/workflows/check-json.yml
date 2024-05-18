@@ -9,16 +9,17 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Fetch AOE2 Personal Stats
       run: |
         set -e
         echo "Fetching data for profile: /steam/76561198067966567"
         ENCODED_PROFILE=%2Fsteam%2F76561198067966567
-        URL="https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=%5B%22${ENCODED_PROFILE}%22%5D"
+        ENCODED_URL="https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=%5B%22${ENCODED_PROFILE}%22%5D"
         echo "Encoded profile: ${ENCODED_PROFILE}"
-        curl -sS "${URL}" -o aoe2_personal_stats.json
+        echo "Encoded URL: ${ENCODED_URL}"
+        curl -sS "${ENCODED_URL}" -o aoe2_personal_stats.json
         cat aoe2_personal_stats.json
 
     - name: Upload JSON output
