@@ -20,8 +20,9 @@ jobs:
           echo "[]" > elo_data.json
           profiles=("/steam/76561198067966567" "/steam/76561198123456789" "/steam/76561198234567890")
           for profile in "${profiles[@]}"; do
-            echo "Fetching data for profile: $profile"
-            response=$(curl -s "https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=[\"$profile\"]")
+            encoded_profile=$(echo "$profile" | jq -sRr @uri)
+            echo "Fetching data for profile: $encoded_profile"
+            response=$(curl -s "https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=[\"$encoded_profile\"]")
             echo "Response: $response"
             if [ -z "$response" ]; then
               echo "Error: No response for profile $profile" >&2
