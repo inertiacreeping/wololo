@@ -148,14 +148,46 @@ p {
 .footer {
     margin-top: 30px;
     font-size: 1em;
-    color: #fff;
+    color: #f370e8;
     text-align: center;
+    overflow: hidden; /* Ensure the wave effect stays within the container */
 }
+
 .footer a {
-    color: #fff;
+    color: #f370e8;
     text-decoration: none;
     font-weight: bold;
+    display: inline-block; /* Ensure each link can be individually animated */
+    animation: wave 2s infinite;
 }
+
 .footer a:hover {
     text-decoration: underline;
+}
+
+/* Keyframes for the wavy animation */
+@keyframes wave {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-5px);
+    }
+    50% {
+        transform: translateY(5px);
+    }
+    75% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Add a slight delay to each link to create a wave effect */
+.footer a:nth-child(2) {
+    animation-delay: 0.1s;
+}
+.footer a:nth-child(3) {
+    animation-delay: 0.2s;
+}
+.footer a:nth-child(4) {
+    animation-delay: 0.3s;
 }
