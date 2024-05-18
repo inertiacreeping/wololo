@@ -1,0 +1,35 @@
+name: Update Live Status
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' # Runs every 5 minutes
+  push:
+    branches:
+      - main
+
+jobs:
+  update-live-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Fetch Live Status and Update JSON
+        env:
+          TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_ACCESS_TOKEN: ${{ secrets.TWITCH_ACCESS_TOKEN }}
+        run: |
+          echo "[]" > live_status.json
+          for streamer in inertiacreeping shiderplays tambow chestnutplace77; do
+            response=$(curl -s -H "Client-ID: $TWITCH_CLIENT_ID" -H "Authorization: Bearer $TWITCH_ACCESS_TOKEN" "https://api.twitch.tv/helix/streams?user_login=$streamer")
+            is_live=$(echo $response | jq '.data | length > 0')
+            jq --argjson is_live $is_live --arg name $streamer '. += [{"name": $name, "is_live": $is_live}]' live_status.json > tmp.json && mv tmp.json live_status.json
+          done
+
+      - name: Commit and Push JSON
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add live_status.json
+          git commit -m "Update live status"
+          git push
