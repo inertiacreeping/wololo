@@ -17,6 +17,7 @@ jobs:
       - name: Fetch ELO Data and Update JSON
         run: |
           set -e
+          [ ! -d ./data ] && mkdir ./data
           echo "[]" > ./data/elo_data.json
           steamIDs=(/steam/76561198403361404 /steam/76561198040642066 /steam/76561198151727332 /steam/76561198067966567)
           for steamID in "${steamIDs[@]}"; do
