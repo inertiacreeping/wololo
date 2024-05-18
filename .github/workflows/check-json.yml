@@ -26,14 +26,16 @@ jobs:
             continue
           fi
 
-          leaderboardStats=$(echo "$response" | jq '.leaderboardStats')
-          if [ "$leaderboardStats" == "null" ] || [ "$(echo "$leaderboardStats" | jq length)" -eq 0 ]; then
+          leaderboardStats=$(echo "$response" | jq '.leaderboardStats // []')
+          if [ "$(echo "$leaderboardStats" | jq length)" -eq 0 ]; then
             echo "No leaderboardStats found for profile $profile"
             continue
           fi
 
           elo1v1=$(echo "$leaderboardStats" | jq 'map(select(.leaderboard_id == 3) | .rating) | first // null')
           eloTeam=$(echo "$leaderboardStats" | jq 'map(select(.leaderboard_id == 4) | .rating) | first // null')
+
+          echo "elo1v1: $elo1v1, eloTeam: $eloTeam"
 
           jq --arg profile "$profile" \
              --argjson elo1v1 "$elo1v1" \
