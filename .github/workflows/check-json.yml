@@ -10,7 +10,7 @@ jobs:
       - name: Fetch JSON and Print
         run: |
           set -x
-          url='https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=%5B%22/steam/76561198067966567%22%5D'
+          url='https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=[%22/steam/76561198067966567%22]'
           response=$(curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36" "$url")
           echo "Response: $response"
         shell: /bin/bash
