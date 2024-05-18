@@ -145,3 +145,17 @@ p {
     pointer-events: none;
     z-index: 0;
 }
+.footer {
+    margin-top: 30px;
+    font-size: 1em;
+    color: #fff;
+    text-align: center;
+}
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
