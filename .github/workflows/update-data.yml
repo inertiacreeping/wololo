@@ -27,8 +27,20 @@ jobs:
               echo "Error: No response for profile $profile" >&2
               exit 1
             fi
+            # Check if the response is valid JSON
+            if ! echo "$response" | jq . > /dev/null 2>&1; then
+              echo "Error: Invalid JSON response for profile $profile" >&2
+              exit 1
+            fi
+            # Extract ELO ratings
             elo1v1=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 3) | .rating')
             eloTeam=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 4) | .rating')
+            if [ -z "$elo1v1" ]; then
+              elo1v1=null
+            fi
+            if [ -z "$eloTeam" ]; then
+              eloTeam=null
+            fi
             echo "elo1v1: $elo1v1, eloTeam: $eloTeam"
             jq --arg profile "$profile" \
                --argjson elo1v1 "$elo1v1" \
