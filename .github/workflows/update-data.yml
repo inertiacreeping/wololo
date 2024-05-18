@@ -2,7 +2,7 @@ name: Update ELO Data
 
 on:
   schedule:
-    - cron: '0 * * * *' # Runs every hour
+    - cron: '*/5 * * * *' # Runs every 5mins
   push:
     branches:
       - main
@@ -18,34 +18,13 @@ jobs:
         run: |
           set -e
           echo "[]" > elo_data.json
-          profiles=("/steam/76561198067966567" "/steam/76561198123456789" "/steam/76561198234567890")
+          profiles=(/steam/76561198067966567 /steam/76561198123456789 /steam/76561198234567890)
           for profile in "${profiles[@]}"; do
-            echo "Fetching data for profile: $profile"
-            # Properly encode the profile name
-            encoded_profile=$(jq -Rrn --arg p "$profile" '$p|@uri')
-            echo "Encoded profile: $encoded_profile"
-            response=$(curl -v "https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=[\"$encoded_profile\"]")
-            echo "Raw Response: $response"  # Output the raw response for debugging
-            if [ -z "$response" ]; then
-              echo "Error: No response for profile $profile" >&2
-              exit 1
-            fi
-            # Check if the response is valid JSON
-            if ! echo "$response" | jq . > /dev/null 2>&1; then
-              echo "Error: Invalid JSON response for profile $profile" >&2
-              echo "$response" # Output the response for debugging
-              exit 1
-            fi
-            # Extract ELO ratings
+            response=$(curl -s "https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=\[%22$profile%22\]")
             elo1v1=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 3) | .rating')
             eloTeam=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 4) | .rating')
-            if [ -z "$elo1v1" ]; then
-              elo1v1=null
-            fi
-            if [ -z "$eloTeam" ]; then
-              eloTeam=null
-            fi
-            echo "elo1v1: $elo1v1, eloTeam: $eloTeam"
+            [ -z "$elo1v1" ] && elo1v1=null
+            [ -z "$eloTeam" ] && eloTeam=null
             jq --arg profile "$profile" \
                --argjson elo1v1 "$elo1v1" \
                --argjson eloTeam "$eloTeam" \
