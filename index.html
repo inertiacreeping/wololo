@@ -262,19 +262,20 @@
             });
         }
 
-        async function fetchEloData(profileId) {
+        async function fetchEloData() {
             try {
-                const response1v1 = await fetch(`https://www.aoe2insights.com/nightbot/rank/3/?query=${profileId}`);
-                const data1v1 = await response1v1.text();
-                document.getElementById(`elo-1v1-${profileId}`).textContent = `1v1 ELO: ${data1v1}`;
-
-                const responseTeam = await fetch(`https://www.aoe2insights.com/nightbot/rank/4/?query=${profileId}`);
-                const dataTeam = await responseTeam.text();
-                document.getElementById(`elo-team-${profileId}`).textContent = `Team ELO: ${dataTeam}`;
+                const response = await fetch('/elo_data.json');
+                const data = await response.json();
+                data.forEach(playerData => {
+                    document.getElementById(`elo-1v1-${playerData.profileId}`).textContent = `1v1 ELO: ${playerData.elo1v1}`;
+                    document.getElementById(`elo-team-${playerData.profileId}`).textContent = `Team ELO: ${playerData.eloTeam}`;
+                });
             } catch (error) {
-                console.error(`Error fetching ELO data for profile ${profileId}:`, error);
-                document.getElementById(`elo-1v1-${profileId}`).textContent = '1v1 ELO: N/A';
-                document.getElementById(`elo-team-${profileId}`).textContent = 'Team ELO: N/A';
+                console.error('Error fetching ELO data:', error);
+                players.forEach(player => {
+                    document.getElementById(`elo-1v1-${player.profileId}`).textContent = '1v1 ELO: N/A';
+                    document.getElementById(`elo-team-${player.profileId}`).textContent = 'Team ELO: N/A';
+                });
             }
         }
 
@@ -309,7 +310,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             generatePlayerList();
-            players.forEach(player => fetchEloData(player.profileId));
+            fetchEloData();
             checkLiveStatus();
             setInterval(checkLiveStatus, 300000); // Check every 5 minutes
         });
