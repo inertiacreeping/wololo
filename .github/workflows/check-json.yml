@@ -11,5 +11,16 @@ jobs:
         run: |
           echo "Fetching JSON from API..."
           url='https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=%5B%22/steam/76561198067966567%22%5D'
-          curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36" "$url"
+          http_response=$(curl -s -w "HTTPSTATUS:%{http_code}" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36" "$url")
+          http_body=$(echo "$http_response" | sed -e 's/HTTPSTATUS:.*//g')
+          http_status=$(echo "$http_response" | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+          echo "HTTP Status Code: $http_status"
+          echo "Response Body: $http_body"
+          # Check if the response is valid JSON
+          if echo "$http_body" | jq . > /dev/null 2>&1; then
+            echo "Valid JSON Response"
+          else
+            echo "Invalid JSON Response"
+            exit 1
+          fi
         shell: /bin/bash
