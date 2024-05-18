@@ -18,7 +18,7 @@ jobs:
         run: |
           set -e
           echo "[]" > elo_data.json
-          profiles=(/steam/76561198067966567 /steam/76561198123456789 /steam/76561198234567890)
+          profiles=(/steam/76561198403361404 /steam/76561198040642066 /steam/76561198151727332 /steam/76561198067966567)
           for profile in "${profiles[@]}"; do
             response=$(curl -s "https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=\[%22$profile%22\]")
             echo "API Response: $response"
