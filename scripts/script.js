@@ -97,35 +97,31 @@ async function checkLiveStatus() {
             continue;
         }
 
-    try {
         const twitchUserName = player.twitch.slice(player.twitch.lastIndexOf('/') + 1);
-        const twitchApiUrl = `https://api.twitch.tv/helix/streams?user_login=${twitchUserName}`
-        const response = await fetch(twitchApiUrl, {
-            headers: {
-                'Client-ID': 'wsp888x940dnqxdecdjmcrrz5kflb5',
-                'Authorization': `Bearer oy5z377gdk6qjwrswqh3usp034gof7`
+        const twitchApiUrl = `http://flutes.nz/checkTwitchUsersLiveStatus?userName=${twitchUserName}`;
+        try {
+            const response = await fetch(twitchApiUrl);
+            const data = await response.json();
+            console.log(data.status);
+            const statusSpan = statusElement.querySelector('.live-text');
+            if (data.status === 'live') {
+                statusSpan.textContent = 'LIVE';
+                statusSpan.classList.add('flash');
+                statusElement.classList.remove('offline');
+                statusElement.classList.add('live');
+            } else {
+                statusSpan.textContent = 'OFFLINE';
+                statusSpan.classList.remove('flash');
+                statusElement.classList.remove('live');
+                statusElement.classList.add('offline');
             }
-        });
-        const data = await response.json();
-        const statusSpan = statusElement.querySelector('.live-text');
-        if (data.data && data.data.length > 0 && data.data[0].type === 'live') {
-            statusSpan.textContent = 'LIVE';
-            statusSpan.classList.add('flash');
-            statusElement.classList.remove('offline');
-            statusElement.classList.add('live');
-        } else {
-            statusSpan.textContent = 'OFFLINE';
+        } catch (error) {
+            console.error(`Error fetching status for ${player.name}:`, error);
+            const statusSpan = statusElement.querySelector('.live-text');
+            statusSpan.textContent = 'ERROR';
             statusSpan.classList.remove('flash');
-            statusElement.classList.remove('live');
-            statusElement.classList.add('offline');
-        }
-    } catch (error) {
-        console.error(`Error fetching status for ${player.name}:`, error);
-        const statusSpan = statusElement.querySelector('.live-text');
-        statusSpan.textContent = 'ERROR';
-        statusSpan.classList.remove('flash');
-        statusElement.classList.remove('live', 'offline');
-        statusElement.style.color = 'orange';
+            statusElement.classList.remove('live', 'offline');
+            statusElement.style.color = 'orange';
     }}
 }
 document.addEventListener('DOMContentLoaded', () => {
