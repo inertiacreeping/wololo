@@ -16,7 +16,7 @@ body {
     margin: auto;
     position: relative;
     z-index: 1;
-    min-width:700px;
+    min-width: 700px;
 }
 h1 {
     color: #fff; /* white text */
