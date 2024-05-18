@@ -20,22 +20,11 @@
 <audio id="wololo-audio" src="wololo.mp3?raw=true"></audio>
 <script src="https://cdn.jsdelivr.net/npm/fireworks-js/dist/fireworks.js"></script>
 <script src="script.js"></script>
-<div id="view-counter" class="view-counter"> Views: <span id="view-count">Loading...</span></div>
 <div class="footer">
     <p>made with ♡ by <a href="https://github.com/inertiacreeping">momo</a> and <a href="https://github.com/tambow44">tambow</a></p>
 </div>
-
-<script>
-    fetch('counter/counter.php')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('view-count').innerText = data;
-        })
-        .catch(error => {
-            console.error('Error fetching the view count:', error);
-            document.getElementById('view-count').innerText = 'Error';
-        });
-</script>
-    
+<!-- hitwebcounter Code START -->
+<a href="https://www.hitwebcounter.com" target="_blank">
+<img src="https://hitwebcounter.com/counter/counter.php?page=13430905&style=0001&nbdigits=5&type=page&initCount=0" title="Counter Widget" Alt="Visit counter For Websites"   border="0" /></a>     
 </body>
 </html>
