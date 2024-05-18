@@ -11,28 +11,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
-
-    - name: Install dependencies
-      run: npm install axios
-
     - name: Fetch AOE2 Personal Stats
       run: |
-        const axios = require('axios');
-        const fs = require('fs');
-
-        axios.get('https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=[%22%2Fsteam%2F76561198067966567%22]')
-          .then(response => {
-            console.log(response.data);
-            fs.writeFileSync('aoe2_personal_stats.json', JSON.stringify(response.data, null, 2));
-          })
-          .catch(error => {
-            console.error(error);
-            process.exit(1);
-          });
+        set -e
+        echo "Fetching data for profile: /steam/76561198067966567"
+        ENCODED_PROFILE=%2Fsteam%2F76561198067966567
+        URL="https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=%5B%22${ENCODED_PROFILE}%22%5D"
+        echo "Encoded profile: ${ENCODED_PROFILE}"
+        curl -sS "${URL}" -o aoe2_personal_stats.json
+        cat aoe2_personal_stats.json
 
     - name: Upload JSON output
       uses: actions/upload-artifact@v2
