@@ -25,9 +25,7 @@ jobs:
             eloTeam=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 4) | .rating')
             [ -z "$elo1v1" ] && elo1v1=null
             [ -z "$eloTeam" ] && eloTeam=null
-            jq --arg profile "$profile" \
-               --argjson elo1v1 "$elo1v1" \
-               --argjson eloTeam "$eloTeam" \
+            jq --arg profile "$profile" --argjson elo1v1 "$elo1v1" --argjson eloTeam "$eloTeam" \
                '. += [{
                   "profile": $profile,
                   "elo1v1": {
