@@ -69,31 +69,35 @@ function shuffleArray(array) {
   return array;
 }
 
-function generatePlayerList() {
+async function generatePlayerList() {
   const shuffledPlayers = shuffleArray(players);
   const playerListContainer = document.getElementById('player-list');
   playerListContainer.innerHTML = '';
   shuffledPlayers.forEach(player => {
-    const playerElement = createPlayerElement(player);
+    const playerElement = await createPlayerElement(player);
     playerListContainer.appendChild(playerElement);
   });
 }
 
-function createPlayerElement(player) {
-  fetch('/player-template.html')
-    .then(response => response.text())
-    .then(template => {
-      const playerHTML = template
-        .replace('{{playerName}}', player.name)
-        .replace('{{steamID}}', player.steamID)
-        .replace('{{twitch}}', player.twitch)
-        .replace('{{discordLink}}', player.discordLink)
-        .replace('{{discordName}}', player.discordName);
-      const playerElement = document.createElement('div');
-      playerElement.classList.add('player');
-      playerElement.innerHTML = playerHTML;
-      return playerElement;
-    });
+async function createPlayerElement(player) {
+  try {
+    const response = await fetch('player-template.html')
+    const template = await response.text();
+    const playerHTML = template
+      .replace('{{playerName}}', player.name)
+      .replace('{{steamID}}', player.steamID)
+      .replace('{{twitch}}', player.twitch)
+      .replace('{{discordLink}}', player.discordLink)
+      .replace('{{discordName}}', player.discordName);
+        
+    const playerElement = document.createElement('div');
+    playerElement.classList.add('player');
+    playerElement.innerHTML = playerHTML;
+    return playerElement;
+  } catch(error) {
+    console.error("Error creating player element: ", error);
+    throw error;
+  }
 }
 
 async function fetchEloData() {
