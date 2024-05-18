@@ -16,12 +16,20 @@ jobs:
 
       - name: Fetch ELO Data and Update JSON
         run: |
+          set -e
           echo "[]" > elo_data.json
           profiles=("/steam/76561198067966567" "/steam/76561198123456789" "/steam/76561198234567890")
           for profile in "${profiles[@]}"; do
+            echo "Fetching data for profile: $profile"
             response=$(curl -s "https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=[\"$profile\"]")
-            elo1v1=$(echo "$response" | jq '.StatGroups[0].Stats[] | select(.Id=="2") | .Value')
-            eloTeam=$(echo "$response" | jq '.StatGroups[0].Stats[] | select(.Id=="3") | .Value')
+            echo "Response: $response"
+            if [ -z "$response" ]; then
+              echo "Error: No response for profile $profile" >&2
+              exit 1
+            fi
+            elo1v1=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 3) | .rating')
+            eloTeam=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 4) | .rating')
+            echo "elo1v1: $elo1v1, eloTeam: $eloTeam"
             jq --arg profile "$profile" \
                --argjson elo1v1 "$elo1v1" \
                --argjson eloTeam "$eloTeam" \
