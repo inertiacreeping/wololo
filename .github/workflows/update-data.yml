@@ -17,7 +17,7 @@ jobs:
       - name: Fetch ELO Data and Update JSON
         run: |
           set -e
-          echo "[]" > elo_data.json
+          echo "[]" > ./data/elo_data.json
           steamIDs=(/steam/76561198403361404 /steam/76561198040642066 /steam/76561198151727332 /steam/76561198067966567)
           for steamID in "${steamIDs[@]}"; do
             response=$(curl -s "https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=\[%22$steamID%22\]")
@@ -30,7 +30,7 @@ jobs:
               "steamID": $steamID,
               "elo1v1": $elo1v1,
               "eloTeam": $eloTeam
-                }]' elo_data.json > tmp.json && mv tmp.json ./data/elo_data.json
+                }]' ./data/elo_data.json > tmp.json && mv tmp.json ./data/elo_data.json
           done
 
       - name: Commit and Push JSON
