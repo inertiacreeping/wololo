@@ -16,6 +16,7 @@ body {
     margin: auto;
     position: relative;
     z-index: 1;
+    min-width:700px;
 }
 h1 {
     color: #fff; /* white text */
@@ -30,7 +31,7 @@ p {
     margin-top: 30px;
 }
 .player {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 .player h2 {
     margin: 10px 0;
@@ -78,7 +79,8 @@ p {
     padding: 10px 20px; /* Increase padding to make the buttons taller */
     border-radius: 5px;
     text-decoration: none;
-    max-width: 190px;
+    max-width: 180px;
+    min-height: 35px;
     white-space: nowrap;
 }
 .discord-button img, .twitch-button img {
@@ -91,11 +93,12 @@ p {
     color: gray;
 }
 .live-text {
-    color: white;
+    color: rgba(255, 255, 255, 0.521);
     font-weight: bold;
 }
 .live-text.flash {
     animation: flash 2s infinite;
+    font-size: 1.6em;
 }
 @keyframes flash {
     0%, 50%, 100% {
