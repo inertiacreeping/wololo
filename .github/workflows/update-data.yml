@@ -32,21 +32,9 @@ jobs:
               echo "Error: Invalid JSON response for profile $profile" >&2
               exit 1
             fi
-            # Check if the result code is 0 (SUCCESS)
-            result_code=$(echo "$response" | jq '.result.code')
-            if [ "$result_code" -ne 0 ]; then
-              echo "Error: API response indicates failure for profile $profile" >&2
-              exit 1
-            fi
-            # Extract ELO ratings
+            # Print out the ratings for debugging
             elo1v1=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 3) | .rating')
             eloTeam=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 4) | .rating')
-            if [ -z "$elo1v1" ]; then
-              elo1v1=null
-            fi
-            if [ -z "$eloTeam" ]; then
-              eloTeam=null
-            fi
             echo "elo1v1: $elo1v1, eloTeam: $eloTeam"
             jq --arg profile "$profile" \
                --argjson elo1v1 "$elo1v1" \
