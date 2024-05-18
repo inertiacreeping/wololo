@@ -12,22 +12,34 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Fetch AOE2 Personal Stats
+      shell: bash
       run: |
         set -e
         echo "[]" > elo_data.json
         profiles=(/steam/76561198067966567 /steam/76561198123456789 /steam/76561198234567890)
-        
+
         for profile in "${profiles[@]}"; do
           echo "Fetching data for profile: $profile"
-          response=$(curl -s "https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=\[%22$profile%22\]")
-          echo "Response: $response"
+          url="https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=%5B%22$profile%22%5D"
+          http_response=$(curl -s -w "HTTPSTATUS:%{http_code}" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36" "$url")
+          http_body=$(echo "$http_response" | sed -e 's/HTTPSTATUS:.*//g')
+          http_status=$(echo "$http_response" | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+          echo "HTTP Status Code: $http_status"
+          echo "Response Body: $http_body"
 
-          if [ -z "$response" ] || ! echo "$response" | jq -e . >/dev/null 2>&1; then
-            echo "Error: Invalid or empty JSON response for profile $profile" >&2
+          if [ "$http_status" -ne 200 ]; then
+            echo "Error: HTTP request failed with status $http_status"
             continue
           fi
 
-          leaderboardStats=$(echo "$response" | jq -r '.leaderboardStats')
+          if echo "$http_body" | jq . > /dev/null 2>&1; then
+            echo "Valid JSON Response"
+          else
+            echo "Invalid JSON Response"
+            continue
+          fi
+
+          leaderboardStats=$(echo "$http_body" | jq -r '.leaderboardStats')
           if [ -z "$leaderboardStats" ] || [ "$leaderboardStats" == "null" ]; then
             echo "No leaderboardStats found for profile $profile"
             continue
