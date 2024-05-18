@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>this is dumb but it works</title>
-    <link rel="icon" href="favicon.png" type="image/png">
+    <title>The Nutshack</title>
+    <link rel="icon" href="https://yourusername.github.io/images/favicon.png" type="image/png">
     <style>
         body {
             background-color: #ffe4e1; /* light red */
@@ -44,6 +44,10 @@
             margin: 10px 0;
             display: inline-block;
             font-size: 1.2em;
+            color: #fff; /* white text */
+        }
+        .elo {
+            font-size: 1em;
             color: #fff; /* white text */
         }
         .live-status {
@@ -145,34 +149,42 @@
 <body>
     <div id="fireworks-container"></div>
     <div class="container">
-        <h1>oh, hi there</h1>
-        <p>if you've been given this URL in game, we should hang out</p>
+        <h1>wololo</h1>
+        <p>hi there, if you've been given this URL in game, this page helps you find us so we can hang out some more!</p>
         <div id="player-list" class="player-list"></div>
         <button class="audio-button" onclick="playAudio()">Wololo!</button>
     </div>
     <audio id="wololo-audio" src="https://github.com/inertiacreeping/wololo/blob/86d3d2a207c1a56970b48878cdbba47c180372e6/wololo.mp3?raw=true"></audio>
     <script src="https://cdn.jsdelivr.net/npm/fireworks-js/dist/fireworks.js"></script>
     <script>
-        const clientId = 'wsp888x940dnqxdecdjmcrrz5kflb5';
-        const accessToken = 'oy5z377gdk6qjwrswqh3usp034gof7';
         const players = [
             {
                 name: 'inertiacreeping',
                 twitch: 'https://www.twitch.tv/inertiacreeping',
                 discordName: 'Low ELO Legends',
-                discordLink: 'https://discord.gg/XXvQE4uY2m'
+                discordLink: 'https://discord.gg/XXvQE4uY2m',
+                profileId: '8425727'
             },
             {
                 name: 'shiderplays',
                 twitch: 'https://www.twitch.tv/shiderplays',
                 discordName: 'ShiderPlays',
-                discordLink: 'https://discord.gg/dzXthPsvKQ'
+                discordLink: 'https://discord.gg/dzXthPsvKQ',
+                profileId: '262331'
+            },
+            {
+                name: 'tambow',
+                twitch: 'https://www.twitch.tv/ttambow',
+                discordName: 'tambourine town',
+                discordLink: 'https://discord.gg/yfyw3ZRUua',
+                profileId: '7104296'
             },
             {
                 name: 'chestnutplace77',
                 twitch: 'https://www.twitch.tv/chestnutplace77',
                 discordName: 'the nutshack',
-                discordLink: 'https://discord.gg/BGEA4HxY8u'
+                discordLink: 'https://discord.gg/BGEA4HxY8u',
+                profileId: '2259426'
             }
         ];
 
@@ -229,6 +241,8 @@
                     <div class="player-info">
                         <div>
                             <h2>${player.name}</h2>
+                            <p class="elo" id="elo-1v1-${player.profileId}">1v1 ELO: Loading...</p>
+                            <p class="elo" id="elo-team-${player.profileId}">Team ELO: Loading...</p>
                         </div>
                         <div>
                             <a href="${player.twitch}" target="_blank" class="twitch-button offline" id="twitch-${player.name}">
@@ -248,25 +262,35 @@
             });
         }
 
-        async function checkLiveStatus() {
-            for (const player of players) {
-                const statusElement = document.getElementById(`twitch-${player.name}`);
-                if (!statusElement) {
-                    console.error(`Element with ID twitch-${player.name} not found`);
-                    continue;
-                }
+        async function fetchEloData(profileId) {
+            try {
+                const response1v1 = await fetch(`https://www.aoe2insights.com/nightbot/rank/3/?query=${profileId}`);
+                const data1v1 = await response1v1.text();
+                document.getElementById(`elo-1v1-${profileId}`).textContent = `1v1 ELO: ${data1v1}`;
 
-                try {
-                    const response = await fetch(`https://api.twitch.tv/helix/streams?user_login=${player.name}`, {
-                        headers: {
-                            'Client-ID': clientId,
-                            'Authorization': `Bearer ${accessToken}`
-                        }
-                    });
-                    const data = await response.json();
-                    console.log(`Streamer: ${player.name}`, data); // Log the data for each streamer
+                const responseTeam = await fetch(`https://www.aoe2insights.com/nightbot/rank/4/?query=${profileId}`);
+                const dataTeam = await responseTeam.text();
+                document.getElementById(`elo-team-${profileId}`).textContent = `Team ELO: ${dataTeam}`;
+            } catch (error) {
+                console.error(`Error fetching ELO data for profile ${profileId}:`, error);
+                document.getElementById(`elo-1v1-${profileId}`).textContent = '1v1 ELO: N/A';
+                document.getElementById(`elo-team-${profileId}`).textContent = 'Team ELO: N/A';
+            }
+        }
+
+        async function checkLiveStatus() {
+            try {
+                const response = await fetch('/live_status.json');
+                const liveStatusData = await response.json();
+                for (const player of players) {
+                    const statusElement = document.getElementById(`twitch-${player.name}`);
+                    if (!statusElement) {
+                        console.error(`Element with ID twitch-${player.name} not found`);
+                        continue;
+                    }
+                    const playerStatus = liveStatusData.find(p => p.name === player.name);
                     const statusSpan = statusElement.querySelector('.live-text');
-                    if (data.data && data.data.length > 0 && data.data[0].type === 'live') {
+                    if (playerStatus && playerStatus.is_live) {
                         statusSpan.textContent = 'LIVE';
                         statusSpan.classList.add('flash');
                         statusElement.classList.remove('offline');
@@ -277,21 +301,17 @@
                         statusElement.classList.remove('live');
                         statusElement.classList.add('offline');
                     }
-                } catch (error) {
-                    console.error(`Error fetching status for ${player.name}:`, error);
-                    const statusSpan = statusElement.querySelector('.live-text');
-                    statusSpan.textContent = 'ERROR';
-                    statusSpan.classList.remove('flash');
-                    statusElement.classList.remove('live', 'offline');
-                    statusElement.style.color = 'orange';
                 }
+            } catch (error) {
+                console.error('Error fetching live status data:', error);
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             generatePlayerList();
+            players.forEach(player => fetchEloData(player.profileId));
             checkLiveStatus();
-            setInterval(checkLiveStatus, 6000); // Check every 6 seconds
+            setInterval(checkLiveStatus, 300000); // Check every 5 minutes
         });
     </script>
 </body>
