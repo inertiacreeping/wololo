@@ -14,10 +14,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: sudo apt-get install -y jq
+
       - name: Fetch ELO Data and Update JSON
         run: |
           set -e
-          [ ! -d data ] && mkdir data
+          [ ! -d data ] && mkdir -p data
           echo "[]" > data/elo_data.json
           steamIDs=(/steam/76561198403361404 /steam/76561198040642066 /steam/76561198151727332 /steam/76561198067966567)
           for steamID in "${steamIDs[@]}"; do
@@ -41,6 +44,6 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.CLASSIC_PAT }}@github.com/${{ github.repository }}
-          git add elo_data.json
+          git add data/elo_data.json
           git commit -m "Update ELO data"
           git push origin HEAD:main
