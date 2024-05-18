@@ -22,9 +22,9 @@ jobs:
           for profile in "${profiles[@]}"; do
             echo "Fetching data for profile: $profile"
             # Properly encode the profile name
-            encoded_profile=$(printf "%s" "$profile" | jq -sRr @uri)
+            encoded_profile=$(jq -Rrn --arg p "$profile" '$p|@uri')
             echo "Encoded profile: $encoded_profile"
-            response=$(curl -v 'https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=["'"$encoded_profile"'"]')
+            response=$(curl -v "https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=[\"$encoded_profile\"]")
             echo "Raw Response: $response"  # Output the raw response for debugging
             if [ -z "$response" ]; then
               echo "Error: No response for profile $profile" >&2
