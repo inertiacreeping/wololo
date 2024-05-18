@@ -1,5 +1,5 @@
 .header-gif {
-    max-height: 60px;
+    max-height: 80px;
     display: block;
     margin: 0 auto 20px; /* Center the image and add some margin below */
 }
@@ -154,11 +154,10 @@ p {
 .footer {
     margin-top: 30px;
     font-size: 1em;
-    color: #f370e8;
+    color: #fff;
     text-align: center;
     overflow: hidden; /* Ensure the wave effect stays within the container */
 }
-
 .footer a {
     color: #f370e8;
     text-decoration: none;
@@ -166,11 +165,9 @@ p {
     display: inline-block; /* Ensure each link can be individually animated */
     animation: wave 2s infinite;
 }
-
 .footer a:hover {
     text-decoration: underline;
 }
-
 /* Keyframes for the wavy animation */
 @keyframes wave {
     0%, 100% {
@@ -186,7 +183,6 @@ p {
         transform: translateY(-5px);
     }
 }
-
 /* Add a slight delay to each link to create a wave effect */
 .footer a:nth-child(2) {
     animation-delay: 0.1s;
@@ -196,4 +192,10 @@ p {
 }
 .footer a:nth-child(4) {
     animation-delay: 0.3s;
+}
+.view-counter {
+    margin-top: 20px;
+    font-size: 1em;
+    color: #fff;
+    text-align: center;
 }
