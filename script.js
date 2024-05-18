@@ -73,16 +73,11 @@ async function generatePlayerList() {
   const shuffledPlayers = shuffleArray(players);
   const playerListContainer = document.getElementById('player-list');
   playerListContainer.innerHTML = '';
-  
-  const playerPromises = shuffledPlayers.map(async player => {
-    const playerElement = await createPlayerElement(player);
-    return playerElement;
-  });
 
-  const playerElements = await Promise.all(playerPromises);
-  playerElements.forEach(playerElement => {
+  for (const player of shuffledPlayers) {
+    const playerElement = await createPlayerElement(player);
     playerListContainer.appendChild(playerElement);
-  });
+  }
 }
 
 async function createPlayerElement(player) {
