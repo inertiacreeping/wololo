@@ -13,7 +13,7 @@
         steamID: '/steam/76561198151727332'
     },
     {
-        name: 'tambow',
+        name: 'ttambow',
         twitch: 'https://www.twitch.tv/ttambow',
         discordName: 'tambourine town',
         discordLink: 'https://discord.gg/yfyw3ZRUua',
