@@ -1,22 +1,27 @@
 [
   {
-    "steamID": "/steam/76561198403361404",
-    "elo1v1": 1457,
-    "eloTeam": 1156
+    "steamId": "/steam/76561198067966567",
+    "elo1v1": 796,
+    "eloTeam": 1151
   },
   {
-    "steamID": "/steam/76561198040642066",
-    "elo1v1": 861,
-    "eloTeam": 1079
-  },
-  {
-    "steamID": "/steam/76561198151727332",
+    "steamId": "/steam/76561198151727332",
     "elo1v1": 1258,
     "eloTeam": 1257
   },
   {
-    "steamID": "/steam/76561198067966567",
-    "elo1v1": 796,
-    "eloTeam": 1151
+    "steamId": "/steam/76561198040642066",
+    "elo1v1": 861,
+    "eloTeam": 1079
+  },
+  {
+    "steamId": "/steam/76561198403361404",
+    "elo1v1": 1457,
+    "eloTeam": 1156
+  },
+  {
+    "steamId": "/steam/76561197960299476",
+    "elo1v1": 746,
+    "eloTeam": 950
   }
 ]

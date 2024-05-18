@@ -98,7 +98,8 @@ async function checkLiveStatus() {
         }
 
     try {
-        const twitchApiUrl = `https://api.twitch.tv/helix/streams?user_login=${player.name}`
+        const twitchUserName = player.twitch.slice(player.twitch.lastIndexOf('/') + 1);
+        const twitchApiUrl = `https://api.twitch.tv/helix/streams?user_login=${twitchUserName}`
         const response = await fetch(twitchApiUrl, {
             headers: {
                 'Client-ID': 'wsp888x940dnqxdecdjmcrrz5kflb5',
@@ -106,7 +107,6 @@ async function checkLiveStatus() {
             }
         });
         const data = await response.json();
-        console.log(`Streamer: ${player.name}`, data); // Log the data for each streamer
         const statusSpan = statusElement.querySelector('.live-text');
         if (data.data && data.data.length > 0 && data.data[0].type === 'live') {
             statusSpan.textContent = 'LIVE';
@@ -132,5 +132,5 @@ document.addEventListener('DOMContentLoaded', () => {
     generatePlayerList();
     fetchEloData();
     checkLiveStatus();
-    setInterval(checkLiveStatus, 15000); // Check every 15 seconds
+    setInterval(checkLiveStatus, 60000); // Check every 1min
 });
