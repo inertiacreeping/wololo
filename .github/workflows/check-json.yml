@@ -15,7 +15,7 @@ jobs:
       run: |
         set -e
         echo "[]" > elo_data.json
-        profiles=(/steam/76561198067966567 /steam/76561198123456789 /steam/76561198234567890)
+        profiles=(/steam/76561198151727332 /steam/76561198040642066 /steam/76561198403361404 /steam/76561198067966567)
 
         for profile in "${profiles[@]}"; do
           echo "Fetching data for profile: $profile"
@@ -47,8 +47,8 @@ jobs:
           elo1v1=$(echo "$leaderboardStats" | jq 'map(select(.leaderboard_id == 3) | .rating) | first // null')
           eloTeam=$(echo "$leaderboardStats" | jq 'map(select(.leaderboard_id == 4) | .rating) | first // null')
 
-          if [ "$elo1v1" == "null" ]; then elo1v1="null"; fi
-          if [ "$eloTeam" == "null" ]; then eloTeam="null"; fi
+          if [ "$elo1v1" == "null" ]; then elo1v1=null; fi
+          if [ "$eloTeam" == "null" ]; then eloTeam=null; fi
 
           echo "elo1v1: $elo1v1, eloTeam: $eloTeam"
 
