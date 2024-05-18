@@ -98,7 +98,7 @@ async function checkLiveStatus() {
         }
 
         const twitchUserName = player.twitch.slice(player.twitch.lastIndexOf('/') + 1);
-        const twitchApiUrl = `http://flutes.nz/checkTwitchUsersLiveStatus?userName=${twitchUserName}`;
+        const twitchApiUrl = `https://flutes.nz/checkTwitchUsersLiveStatus?userName=${twitchUserName}`;
         try {
             const response = await fetch(twitchApiUrl);
             const data = await response.json();
