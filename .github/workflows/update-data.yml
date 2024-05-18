@@ -46,11 +46,11 @@ jobs:
 
       - name: Commit and Push JSON
         env:
-          GITHUB_TOKEN: ${{ secrets.FG_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git remote set-url origin https://x-access-token:${{ secrets.FG_PAT }}@github.com/${{ github.repository }}
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git add elo_data.json live_status.json
           git commit -m "Update ELO and live status data"
           git push origin HEAD:main
