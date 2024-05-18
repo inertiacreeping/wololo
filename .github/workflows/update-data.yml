@@ -22,7 +22,7 @@ jobs:
           for profile in "${profiles[@]}"; do
             echo "Fetching data for profile: $profile"
             response=$(curl -s 'https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=["'"$profile"'"]')
-            echo "Response: $response"
+            echo "Raw Response: $response"  # Output the raw response for debugging
             if [ -z "$response" ]; then
               echo "Error: No response for profile $profile" >&2
               exit 1
