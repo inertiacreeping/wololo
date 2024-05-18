@@ -26,7 +26,7 @@
 </div>
 
 <script>
-    fetch('counter.php')
+    fetch('counter/counter.php')
         .then(response => response.text())
         .then(data => {
             document.getElementById('view-count').innerText = data;
