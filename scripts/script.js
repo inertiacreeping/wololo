@@ -1,35 +1,8 @@
-const players = [{
-    name: 'inertiacreeping',
-    twitch: 'https://www.twitch.tv/inertiacreeping',
-    discordName: 'Low ELO Legends',
-    discordLink: 'https://discord.gg/XXvQE4uY2m',
-    steamID: '/steam/76561198067966567'
-},
-{
-    name: 'shiderplays',
-    twitch: 'https://www.twitch.tv/shiderplays',
-    discordName: 'ShiderPlays',
-    discordLink: 'https://discord.gg/dzXthPsvKQ',
-    steamID: '/steam/76561198151727332'
-},
-{
-    name: 'ttambow',
-    twitch: 'https://www.twitch.tv/ttambow',
-    discordName: 'tambourine town',
-    discordLink: 'https://discord.gg/yfyw3ZRUua',
-    steamID: '/steam/76561198040642066'
-},
-{
-    name: 'chestnutplace77',
-    twitch: 'https://www.twitch.tv/chestnutplace77',
-    discordName: 'the nutshack',
-    discordLink: 'https://discord.gg/BGEA4HxY8u',
-    steamID: '/steam/76561198403361404'
-}];
+import players from "../data/players.json" with { type: 'json' };
 
 let fireworksInstance;
 
-function playAudio() {
+window.playAudio = function() {
     const audio = document.getElementById('wololo-audio');
     audio.volume = 0.3; // Set the volume to 30%
     audio.play().catch(error => console.error('Audio play failed:', error));
@@ -62,7 +35,7 @@ function toggleBlueTheme() {
 }
 
 function shuffle(array) {
-    return shuffled = array
+    return array
         .map(value => ({ value, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value)  
@@ -84,13 +57,13 @@ function generatePlayerList() {
         </div>
         <div>
             <a href="${player.twitch}" target="_blank" class="twitch-button offline" id="twitch-${player.name}">
-            <img src="https://github.com/inertiacreeping/wololo/blob/main/twitch.png?raw=true" class="icon" alt="Twitch">
+            <img src="media/twitch.png" class="icon" alt="Twitch">
             <span class="live-text">OFFLINE</span>
             </a>
         </div>
         <div>
             <a href="${player.discordLink}" target="_blank" class="discord-button">
-            <img src="https://github.com/inertiacreeping/wololo/blob/main/discord.png?raw=true" class="icon" alt="Discord">
+            <img src="media/discord.png" class="icon" alt="Discord">
             <span>${player.discordName}</span>
             </a>
         </div>
@@ -102,7 +75,7 @@ function generatePlayerList() {
 
 async function fetchEloData() {
 try {
-    const response = await fetch('/elo_data.json');
+    const response = await fetch('../data/elo_data.json');
     const data = await response.json();
     data.forEach(playerData => {
         document.getElementById(`elo-1v1-${playerData.steamID}`).textContent = `1v1 ELO: ${playerData.elo1v1}`;
@@ -125,7 +98,8 @@ async function checkLiveStatus() {
         }
 
     try {
-        const response = await fetch(`https://api.twitch.tv/helix/streams?user_login=${player.name}`, {
+        const twitchApiUrl = `https://api.twitch.tv/helix/streams?user_login=${player.name}`
+        const response = await fetch(twitchApiUrl, {
             headers: {
                 'Client-ID': 'wsp888x940dnqxdecdjmcrrz5kflb5',
                 'Authorization': `Bearer oy5z377gdk6qjwrswqh3usp034gof7`
@@ -158,5 +132,5 @@ document.addEventListener('DOMContentLoaded', () => {
     generatePlayerList();
     fetchEloData();
     checkLiveStatus();
-    setInterval(checkLiveStatus, 30000); // Check every 30 seconds
+    setInterval(checkLiveStatus, 15000); // Check every 15 seconds
 });
