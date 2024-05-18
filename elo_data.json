@@ -1,22 +1,38 @@
 [
   {
-    "profileId": "8425727",
-    "elo1v1": "998",
-    "eloTeam": "1224"
+    "profile": "/steam/76561198403361404",
+    "elo1v1": {
+      "rating": 1457
+    },
+    "eloTeam": {
+      "rating": 1156
+    }
   },
   {
-    "profileId": "262331",
-    "elo1v1": "1283",
-    "eloTeam": "1227"
+    "profile": "/steam/76561198040642066",
+    "elo1v1": {
+      "rating": 861
+    },
+    "eloTeam": {
+      "rating": 1079
+    }
   },
   {
-    "profileId": "7104296",
-    "elo1v1": "861",
-    "eloTeam": "1134"
+    "profile": "/steam/76561198151727332",
+    "elo1v1": {
+      "rating": 1258
+    },
+    "eloTeam": {
+      "rating": 1257
+    }
   },
   {
-    "profileId": "2259426",
-    "elo1v1": "1582",
-    "eloTeam": "1163"
+    "profile": "/steam/76561198067966567",
+    "elo1v1": {
+      "rating": 796
+    },
+    "eloTeam": {
+      "rating": 1151
+    }
   }
 ]
