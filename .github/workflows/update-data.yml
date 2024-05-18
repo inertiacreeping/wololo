@@ -30,7 +30,7 @@ jobs:
               "steamID": $steamID,
               "elo1v1": $elo1v1,
               "eloTeam": $eloTeam
-                }]' elo_data.json > tmp.json && mv tmp.json elo_data.json
+                }]' elo_data.json > tmp.json && mv tmp.json data/elo_data.json
           done
 
       - name: Commit and Push JSON
