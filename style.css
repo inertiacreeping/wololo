@@ -193,9 +193,3 @@ p {
 .footer a:nth-child(4) {
     animation-delay: 0.3s;
 }
-.view-counter {
-    margin-top: 20px;
-    font-size: 1em;
-    color: #fff;
-    text-align: center;
-}
