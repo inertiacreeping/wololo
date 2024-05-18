@@ -80,7 +80,7 @@ function generatePlayerList() {
 }
 
 function createPlayerElement(player) {
-  fetch('player-template.html')
+  fetch('/player-template.html')
     .then(response => response.text())
     .then(template => {
       const playerHTML = template
