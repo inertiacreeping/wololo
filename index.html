@@ -192,7 +192,7 @@
 
         function playAudio() {
             const audio = document.getElementById('wololo-audio');
-            audio.volume = 0.5; // Set the volume to 50%
+            audio.volume = 0.3; // Set the volume to 30%
             audio.play().catch(error => console.error('Audio play failed:', error));
             triggerFireworks();
             toggleBlueTheme();
@@ -202,7 +202,7 @@
             const container = document.getElementById('fireworks-container');
             if (!fireworksInstance) {
                 fireworksInstance = new Fireworks(container, {
-                    maxRockets: 5, // max # of rockets to spawn
+                    maxRockets: 15, // max # of rockets to spawn
                     rocketSpawnInterval: 150, // milliseconds to check if new rockets should spawn
                     numParticles: 100, // number of particles to spawn when rocket explodes
                     explosionMinHeight: 0.2,
@@ -213,8 +213,8 @@
             fireworksInstance.start();
 
             setTimeout(() => {
-                fireworksInstance.stop(); // Stop the fireworks after 5 seconds
-            }, 5000); // Adjust the duration as needed
+                fireworksInstance.stop(); // Stop the fireworks after 10 seconds
+            }, 10000); // Adjust the duration as needed
         }
 
         function toggleBlueTheme() {
