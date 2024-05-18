@@ -14,16 +14,44 @@ jobs:
     - name: Fetch AOE2 Personal Stats
       run: |
         set -e
-        echo "Fetching data for profile: /steam/76561198067966567"
-        ENCODED_PROFILE=%2Fsteam%2F76561198067966567
-        ENCODED_URL="https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=%5B%22${ENCODED_PROFILE}%22%5D"
-        echo "Encoded profile: ${ENCODED_PROFILE}"
-        echo "Encoded URL: ${ENCODED_URL}"
-        curl -sS "${ENCODED_URL}" -o aoe2_personal_stats.json
-        cat aoe2_personal_stats.json
+        echo "[]" > elo_data.json
+        profiles=(/steam/76561198067966567 /steam/76561198123456789 /steam/76561198234567890)
+        for profile in "${profiles[@]}"; do
+          echo "Fetching data for profile: $profile"
+          response=$(curl -s "https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=\[%22$profile%22\]")
+          echo "Response: $response"
+
+          if [ -z "$response" ] || ! echo "$response" | jq -e . >/dev/null 2>&1; then
+            echo "Error: Invalid or empty JSON response for profile $profile" >&2
+            continue
+          fi
+
+          leaderboardStats=$(echo "$response" | jq '.leaderboardStats')
+          if [ "$leaderboardStats" == "null" ]; then
+            echo "No leaderboardStats found for profile $profile"
+            continue
+          fi
+
+          elo1v1=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 3) | .rating')
+          eloTeam=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 4) | .rating')
+          [ -z "$elo1v1" ] && elo1v1=null
+          [ -z "$eloTeam" ] && eloTeam=null
+          jq --arg profile "$profile" \
+             --argjson elo1v1 "$elo1v1" \
+             --argjson eloTeam "$eloTeam" \
+             '. += [{
+                "profile": $profile,
+                "elo1v1": {
+                  "rating": $elo1v1
+                },
+                "eloTeam": {
+                  "rating": $eloTeam
+                }
+              }]' elo_data.json > tmp.json && mv tmp.json elo_data.json
+        done
 
     - name: Upload JSON output
       uses: actions/upload-artifact@v2
       with:
-        name: aoe2_personal_stats
-        path: aoe2_personal_stats.json
+        name: elo_data
+        path: elo_data.json
