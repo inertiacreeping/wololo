@@ -18,17 +18,17 @@ jobs:
         run: |
           set -e
           echo "[]" > elo_data.json
-          profiles=(/steam/76561198403361404 /steam/76561198040642066 /steam/76561198151727332 /steam/76561198067966567)
-          for profile in "${profiles[@]}"; do
+          steamIDs=(/steam/76561198403361404 /steam/76561198040642066 /steam/76561198151727332 /steam/76561198067966567)
+          for steamID in "${steamIDs[@]}"; do
             response=$(curl -s "https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=\[%22$profile%22\]")
             echo "API Response: $response"
             elo1v1=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 3) | .rating')
             eloTeam=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 4) | .rating')
             [ -z "$elo1v1" ] && elo1v1=null
             [ -z "$eloTeam" ] && eloTeam=null
-            jq --arg profile "$profile" --argjson elo1v1 "$elo1v1" --argjson eloTeam "$eloTeam" \
+            jq --arg steamID "$steamID" --argjson elo1v1 "$elo1v1" --argjson eloTeam "$eloTeam" \
                '. += [{
-                  "profile": $profile,
+                  "steamID": $steamID,
                   "elo1v1": {
                     "rating": $elo1v1
                   },
