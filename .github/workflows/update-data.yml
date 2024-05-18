@@ -20,18 +20,24 @@ jobs:
       - name: Fetch ELO Data and Update JSON
         run: |
           set -e
+          STEAM_IDS=()
+          while IFS= read -r line; do
+            steamId=$(echo "$line" | jq -r '.steamId')
+            [ -n "$steamId" ] && STEAM_IDS+=("$steamId")
+          done < <(jq -c '.[]' data/players.json)
+
           [ ! -d data ] && mkdir -p data
           echo "[]" > data/elo_data.json
-          steamIDs=(/steam/76561198403361404 /steam/76561198040642066 /steam/76561198151727332 /steam/76561198067966567)
-          for steamID in "${steamIDs[@]}"; do
-            response=$(curl -s "https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=\[%22$steamID%22\]")
+
+          for steamId in "${STEAM_IDS[@]}"; do
+            response=$(curl -s "https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=\[%22$steamId%22\]")
             elo1v1=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 3) | .rating')
             eloTeam=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 4) | .rating')
             [ -z "$elo1v1" ] && elo1v1=null
             [ -z "$eloTeam" ] && eloTeam=null
-            jq --arg steamID "$steamID" --argjson elo1v1 "$elo1v1" --argjson eloTeam "$eloTeam" \
+            jq --arg steamId "$steamId" --argjson elo1v1 "$elo1v1" --argjson eloTeam "$eloTeam" \
             '. += [{
-              "steamID": $steamID,
+              "steamId": $steamId,
               "elo1v1": $elo1v1,
               "eloTeam": $eloTeam
                 }]' data/elo_data.json > tmp.json && mv tmp.json data/elo_data.json

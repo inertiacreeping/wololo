@@ -52,8 +52,8 @@ function generatePlayerList() {
         <div class="player-info">
         <div>
             <h2>${player.name}</h2>
-            <p class="elo" id="elo-1v1-${player.steamID}">1v1 ELO: Loading...</p>
-            <p class="elo" id="elo-team-${player.steamID}">Team ELO: Loading...</p>
+            <p class="elo" id="elo-1v1-${player.steamId}">1v1 ELO: Loading...</p>
+            <p class="elo" id="elo-team-${player.steamId}">Team ELO: Loading...</p>
         </div>
         <div>
             <a href="${player.twitch}" target="_blank" class="twitch-button offline" id="twitch-${player.name}">
@@ -78,14 +78,14 @@ try {
     const response = await fetch('../data/elo_data.json');
     const data = await response.json();
     data.forEach(playerData => {
-        document.getElementById(`elo-1v1-${playerData.steamID}`).textContent = `1v1 ELO: ${playerData.elo1v1}`;
-        document.getElementById(`elo-team-${playerData.steamID}`).textContent = `Team ELO: ${playerData.eloTeam}`;
+        document.getElementById(`elo-1v1-${playerData.steamId}`).textContent = `1v1 ELO: ${playerData.elo1v1}`;
+        document.getElementById(`elo-team-${playerData.steamId}`).textContent = `Team ELO: ${playerData.eloTeam}`;
     });
 } catch (error) {
     console.error('Error fetching ELO data:', error);
     players.forEach(player => {
-        document.getElementById(`elo-1v1-${player.steamID}`).textContent = '1v1 ELO: N/A';
-        document.getElementById(`elo-team-${player.steamID}`).textContent = 'Team ELO: N/A';
+        document.getElementById(`elo-1v1-${player.steamId}`).textContent = '1v1 ELO: N/A';
+        document.getElementById(`elo-team-${player.steamId}`).textContent = 'Team ELO: N/A';
     });
 }}
 
