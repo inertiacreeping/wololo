@@ -30,6 +30,7 @@ jobs:
             # Check if the response is valid JSON
             if ! echo "$response" | jq . > /dev/null 2>&1; then
               echo "Error: Invalid JSON response for profile $profile" >&2
+              echo "$response" # Output the response for debugging
               exit 1
             fi
             # Extract ELO ratings
