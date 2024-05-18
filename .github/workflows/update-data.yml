@@ -37,13 +37,6 @@ jobs:
             jq --argjson is_live $is_live --arg name $streamer '. += [{"name": $name, "is_live": $is_live}]' live_status.json > tmp.json && mv tmp.json live_status.json
           done
 
-      - name: Debug Information
-        run: |
-          echo "Running as user:"
-          whoami
-          echo "Home directory contents:"
-          ls -la /home/runner/
-
       - name: Commit and Push JSON
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
