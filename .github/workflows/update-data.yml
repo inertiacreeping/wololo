@@ -1,4 +1,4 @@
-name: Update Data
+name: Update ELO Data
 
 on:
   schedule:
@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  update-data:
+  update-elo-data:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,7 +21,7 @@ jobs:
           profiles=("/steam/76561198067966567" "/steam/76561198123456789" "/steam/76561198234567890")
           for profile in "${profiles[@]}"; do
             echo "Fetching data for profile: $profile"
-            response=$(curl -s "https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=[\"$profile\"]")
+            response=$(curl -s 'https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2&profile_names=["'"$profile"'"]')
             echo "Response: $response"
             if [ -z "$response" ]; then
               echo "Error: No response for profile $profile" >&2
@@ -32,9 +32,15 @@ jobs:
               echo "Error: Invalid JSON response for profile $profile" >&2
               exit 1
             fi
-            # Print out the ratings for debugging
+            # Extract ELO ratings
             elo1v1=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 3) | .rating')
             eloTeam=$(echo "$response" | jq '.leaderboardStats[] | select(.leaderboard_id == 4) | .rating')
+            if [ -z "$elo1v1" ]; then
+              elo1v1=null
+            fi
+            if [ -z "$eloTeam" ]; then
+              eloTeam=null
+            fi
             echo "elo1v1: $elo1v1, eloTeam: $eloTeam"
             jq --arg profile "$profile" \
                --argjson elo1v1 "$elo1v1" \
@@ -50,18 +56,6 @@ jobs:
                 }]' elo_data.json > tmp.json && mv tmp.json elo_data.json
           done
 
-      - name: Fetch Live Status and Update JSON
-        env:
-          TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
-          TWITCH_ACCESS_TOKEN: ${{ secrets.TWITCH_ACCESS_TOKEN }}
-        run: |
-          echo "[]" > live_status.json
-          for streamer in inertiacreeping shiderplays ttambow chestnutplace77; do
-            response=$(curl -s -H "Client-ID: $TWITCH_CLIENT_ID" -H "Authorization: Bearer $TWITCH_ACCESS_TOKEN" "https://api.twitch.tv/helix/streams?user_login=$streamer")
-            is_live=$(echo $response | jq '.data | length > 0')
-            jq --argjson is_live $is_live --arg name $streamer '. += [{"name": $name, "is_live": $is_live}]' live_status.json > tmp.json && mv tmp.json live_status.json
-          done
-
       - name: Commit and Push JSON
         env:
           CLASSIC_PAT: ${{ secrets.CLASSIC_PAT }}
@@ -69,6 +63,6 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.CLASSIC_PAT }}@github.com/${{ github.repository }}
-          git add elo_data.json live_status.json
-          git commit -m "Update ELO and live status data"
+          git add elo_data.json
+          git commit -m "Update ELO data"
           git push origin HEAD:main
