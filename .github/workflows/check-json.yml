@@ -27,8 +27,8 @@ jobs:
             continue
           fi
 
-          leaderboardStats=$(echo "$response" | jq '.leaderboardStats // []')
-          if [ "$(echo "$leaderboardStats" | jq length)" -eq 0 ]; then
+          leaderboardStats=$(echo "$response" | jq -r '.leaderboardStats')
+          if [ -z "$leaderboardStats" ] || [ "$leaderboardStats" == "null" ]; then
             echo "No leaderboardStats found for profile $profile"
             continue
           fi
