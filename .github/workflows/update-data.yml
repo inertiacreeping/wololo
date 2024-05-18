@@ -29,12 +29,8 @@ jobs:
             jq --arg steamID "$steamID" --argjson elo1v1 "$elo1v1" --argjson eloTeam "$eloTeam" \
                '. += [{
                   "steamID": $steamID,
-                  "elo1v1": {
-                    "rating": $elo1v1
-                  },
-                  "eloTeam": {
-                    "rating": $eloTeam
-                  }
+                  "elo1v1": $elo1v1
+                  "eloTeam": $eloTeam
                 }]' elo_data.json > tmp.json && mv tmp.json elo_data.json
           done
 
