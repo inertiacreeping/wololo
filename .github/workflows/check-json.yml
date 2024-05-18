@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Fetch AOE2 Personal Stats
       run: |
@@ -52,7 +52,7 @@ jobs:
         done
 
     - name: Upload JSON output
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: elo_data
         path: elo_data.json
