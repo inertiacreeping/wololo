@@ -10,7 +10,7 @@ body {
     color: #fff; /* white text */
     text-align: center;
     padding: 50px;
-    overflow: hidden;
+   /* overflow: hidden; */ /* Remove this line to allow scrolling */
 }
 .container {
     border: 5px solid #8b0000; /* dark red */
