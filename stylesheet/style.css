@@ -12,6 +12,9 @@ body {
     padding: 50px;
    /* overflow: hidden; */ /* Remove this line to allow scrolling */
 }
+.bold-text {
+    font-weight: bold;
+}
 .container {
     border: 5px solid #8b0000; /* dark red */
     padding: 20px;
