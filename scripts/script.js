@@ -52,8 +52,8 @@ function generatePlayerList() {
         <div class="player-info">
         <div>
             <h2>${player.name}</h2>
-            <p class="elo" id="elo-1v1-${player.steamId}">1v1 ELO: Loading...</p>
-            <p class="elo" id="elo-team-${player.steamId}">Team ELO: Loading...</p>
+                <p class="elo" id="elo-1v1-${player.steamId}"><span class="bold-text">1v1 ELO:</span> Loading...</p>
+                <p class="elo" id="elo-team-${player.steamId}"><span class="bold-text">Team ELO:</span> Loading...</p>
         </div>
         <div>
             <a href="${player.twitch}" target="_blank" class="twitch-button offline" id="twitch-${player.name}">
