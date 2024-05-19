@@ -132,32 +132,48 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+    generatePlayerList();
+    fetchEloData();
+    checkLiveStatus();
+    setInterval(checkLiveStatus, 60000); // Check every 1min
+    
     fetch('data/ads.json')
         .then(response => response.json())
         .then(ads => {
-            const leftAds = document.getElementById('ads-left');
-            const rightAds = document.getElementById('ads-right');
-            let leftAdCount = 0;
-            let rightAdCount = 0;
+            console.log('Ads data fetched:', ads); // Debugging log
 
-            ads.forEach(ad => {
+            const shuffledAds = shuffle(ads);
+            const leftAds = shuffledAds.slice(0, 3);
+            const rightAds = shuffledAds.slice(3, 6);
+
+            const leftAdsContainer = document.getElementById('side-content-left');
+            const rightAdsContainer = document.getElementById('side-content-right');
+
+            leftAds.forEach(ad => {
                 const adElement = document.createElement('div');
-                adElement.className = 'ad';
+                adElement.className = 'promo-box';
                 adElement.innerHTML = `
                     <h3>${ad.title}</h3>
                     <p>${ad.description}</p>
                     <p><a href="#">${ad.website}</a></p>
                     <p>Phone: ${ad.phone}</p>
                 `;
-
-                if (leftAdCount < 3) {
-                    leftAds.appendChild(adElement);
-                    leftAdCount++;
-                } else {
-                    rightAds.appendChild(adElement);
-                    rightAdCount++;
-                }
+                leftAdsContainer.appendChild(adElement);
             });
+
+            rightAds.forEach(ad => {
+                const adElement = document.createElement('div');
+                adElement.className = 'promo-box';
+                adElement.innerHTML = `
+                    <h3>${ad.title}</h3>
+                    <p>${ad.description}</p>
+                    <p><a href="#">${ad.website}</a></p>
+                    <p>Phone: ${ad.phone}</p>
+                `;
+                rightAdsContainer.appendChild(adElement);
+            });
+
+            console.log('Ads appended to columns'); // Debugging log
         })
         .catch(error => console.error('Error fetching ads:', error));
 });
