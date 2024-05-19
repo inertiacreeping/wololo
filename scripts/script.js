@@ -130,3 +130,34 @@ document.addEventListener('DOMContentLoaded', () => {
     checkLiveStatus();
     setInterval(checkLiveStatus, 60000); // Check every 1min
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    fetch('data/ads.json')
+        .then(response => response.json())
+        .then(ads => {
+            const leftAds = document.getElementById('ads-left');
+            const rightAds = document.getElementById('ads-right');
+            let leftAdCount = 0;
+            let rightAdCount = 0;
+
+            ads.forEach(ad => {
+                const adElement = document.createElement('div');
+                adElement.className = 'ad';
+                adElement.innerHTML = `
+                    <h3>${ad.title}</h3>
+                    <p>${ad.description}</p>
+                    <p><a href="#">${ad.website}</a></p>
+                    <p>Phone: ${ad.phone}</p>
+                `;
+
+                if (leftAdCount < 3) {
+                    leftAds.appendChild(adElement);
+                    leftAdCount++;
+                } else {
+                    rightAds.appendChild(adElement);
+                    rightAdCount++;
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching ads:', error));
+});
