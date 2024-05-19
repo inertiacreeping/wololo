@@ -1,0 +1,65 @@
+[
+    {
+        "civ": "Goths",
+        "title": "Goth Spam Services",
+        "description": "Spam trouble? Call us!",
+        "website": "www.gothspam.co.uk",
+        "phone": "01234 567890"
+    },
+    {
+        "civ": "Mongols",
+        "title": "Mangudai Express",
+        "description": "Get your pizza in 30 minutes or less, or it's free!!",
+        "website": "www.mangudaiexpress.com",
+        "phone": "09876 543210"
+    },
+    {
+        "civ": "Bengalis",
+        "title": "Bengali Monastery",
+        "description": "Convert your problems away!",
+        "website": "www.rogan.in",
+        "phone": "+91 98765 43210"
+    },
+    {
+        "civ": "Teutons",
+        "title": "Teutonic Pizzas",
+        "description": "Piping hot pies, delivered to your door in 24-48 hours.",
+        "website": "www.tkpizza.de",
+        "phone": "+49 123 4567890"
+    },
+    {
+        "civ": "Bohemians",
+        "title": "Bohemian Cannons",
+        "description": "Best BBC you'll ever see!",
+        "website": "www.bbc.cz",
+        "phone": "+420 987 654321"
+    },
+    {
+        "civ": "Georgians",
+        "title": "Check Out This Unique Unit",
+        "description": "*DLC required?",
+        "website": "www.visitgeorgia.com",
+        "phone": "+955 955 999"
+    },
+    {
+        "civ": "Bengalis",
+        "title": "Doctors hate this weird trick!",
+        "description": "Grow two free villagers - not a scam!",
+        "website": "www.bengalitrick.in",
+        "phone": "+91 98765 43210"
+    },
+    {
+        "civ": "Franks",
+        "title": "Frank's Dungeon",
+        "description": "This horse isn't the only thing that's collared!",
+        "website": "www.freakyfrank.fr",
+        "phone": "+33 123 456789"
+    },
+    {
+        "civ": "Britons",
+        "title": "Fletching Services",
+        "description": "This Briton babe can nock your shaft? Call 1-800-FLECHING",
+        "website": "www.britonfletching.co.uk",
+        "phone": "1-800-FLECHING"
+    }
+]
