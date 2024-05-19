@@ -137,7 +137,7 @@ p {
     color: #fff;
     text-decoration: none;
     border-radius: 20px;
-    border: 5px;
+    border: 5px solid #000;
     cursor: pointer;
     font-weight: bold;
     background: linear-gradient(270deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
