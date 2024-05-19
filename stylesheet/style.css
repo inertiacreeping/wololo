@@ -37,14 +37,14 @@ body {
     justify-content: space-between;
 }
 
-.ads-left, .ads-right {
+.side-content-left, .side-content-right {
     width: 150px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
-.ad {
+.promo-box {
     background-color: #ffffe0; /* light yellow */
     color: #000; /* Set text colour to black */
     padding: 10px;
@@ -53,28 +53,28 @@ body {
     text-align: left;
     font-family: 'Arial', sans-serif;
     font-size: 0.9em;
-    flex: 1; /* Allow ads to stretch */
+    flex: 1; /* Allow boxes to stretch */
 }
 
-.ad h3 {
+.promo-box h3 {
     font-size: 1em;
     margin-bottom: 5px;
     color: #000; /* Ensure header text is black */
 }
 
-.ad p {
+.promo-box p {
     margin: 5px 0;
     color: #000; /* Ensure paragraph text is black */
 }
 
-.ad a {
+.promo-box a {
     color: #0000ff; /* blue */
     text-decoration: underline;
     word-wrap: break-word; /* Ensure long URLs wrap */
 }
 
 @media (max-width: 1200px) {
-    .ads-left, .ads-right {
+    .side-content-left, .side-content-right {
         display: none;
     }
 
@@ -84,7 +84,7 @@ body {
 }
 
 @media (max-width: 900px) {
-    .ads-left, .ads-right {
+    .side-content-left, .side-content-right {
         display: none;
     }
 
@@ -92,6 +92,7 @@ body {
         margin-top: 20px;
     }
 }
+
 h1 {
     color: #fff; /* white text */
     font-size: 3em;
