@@ -4,28 +4,93 @@
     margin: 0 auto 20px; /* Center the image and add some margin below */
 }
 
+.bold-text {
+    font-weight: bold;
+}
 body {
     background-color: #ffe4e1; /* light red */
     font-family: 'Courier New', Courier, monospace;
     color: #fff; /* white text */
     text-align: center;
     padding: 50px;
-   /* overflow: hidden; */ /* Remove this line to allow scrolling */
+    overflow: hidden;
 }
-.bold-text {
-    font-weight: bold;
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* Stretch items to the same height */
+    gap: 20px;
 }
+
 .container {
-    border: 5px solid #000;
+    border: 5px solid #8b0000; /* dark red */
     padding: 20px;
-    display: inline-block;
     background-color: #ff6347; /* tomato red */
     box-shadow: 10px 10px 5px #888888;
     max-width: 800px;
-    margin: auto;
+    min-width: 700px;
     position: relative;
     z-index: 1;
-    min-width: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ads-left, .ads-right {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.ad {
+    background-color: #ffffe0; /* light yellow */
+    color: #000; /* Set text colour to black */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #000;
+    text-align: left;
+    font-family: 'Arial', sans-serif;
+    font-size: 0.9em;
+    flex: 1; /* Allow ads to stretch */
+}
+
+.ad h3 {
+    font-size: 1em;
+    margin-bottom: 5px;
+    color: #000; /* Ensure header text is black */
+}
+
+.ad p {
+    margin: 5px 0;
+    color: #000; /* Ensure paragraph text is black */
+}
+
+.ad a {
+    color: #0000ff; /* blue */
+    text-decoration: underline;
+    word-wrap: break-word; /* Ensure long URLs wrap */
+}
+
+@media (max-width: 1200px) {
+    .ads-left, .ads-right {
+        display: none;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    .ads-left, .ads-right {
+        display: none;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
 }
 h1 {
     color: #fff; /* white text */
