@@ -124,13 +124,6 @@ async function checkLiveStatus() {
             statusElement.style.color = 'orange';
     }}
 }
-document.addEventListener('DOMContentLoaded', () => {
-    generatePlayerList();
-    fetchEloData();
-    checkLiveStatus();
-    setInterval(checkLiveStatus, 60000); // Check every 1min
-});
-
 document.addEventListener("DOMContentLoaded", function () {
     generatePlayerList();
     fetchEloData();
@@ -143,8 +136,8 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log('Ads data fetched:', ads); // Debugging log
 
             const shuffledAds = shuffle(ads);
-            const leftAds = shuffledAds.slice(0, 3);
-            const rightAds = shuffledAds.slice(3, 6);
+            const leftAds = shuffledAds.slice(0, 2);
+            const rightAds = shuffledAds.slice(2, 4);
 
             const leftAdsContainer = document.getElementById('side-content-left');
             const rightAdsContainer = document.getElementById('side-content-right');
