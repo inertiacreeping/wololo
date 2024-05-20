@@ -40,5 +40,12 @@
         "discordName": "The Bakery",
         "discordLink": "https://discord.com/invite/H7cFc7fChK",
         "steamId": "/steam/76561198037405654"
+    },
+    {
+        "name": "Mc West",
+        "twitch":"https://www.twitch.tv/mcwest93",
+        "discordName": "Age of Drinks",
+        "discordLink": "https://discord.com/invite/H7cFc7fChK",
+        "steamId": "/steam/76561199261208776"    
     }
 ]
