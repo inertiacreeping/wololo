@@ -5,26 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
-    <link rel="icon" href="media/favicon.png" type="image/png">
-    <link rel="stylesheet" href="stylesheet/style.css">
+    <link loading="lazy" rel="icon" href="media/favicon.png" type="image/png">
+    <link loading="lazy" rel="stylesheet" href="stylesheet/style.css">
 </head>
 <body>
-<audio id="wololo-audio" src="media/wololo.mp3"></audio>
-<div id="fireworks-container"></div>
-<div class="flex-container">
-    <div class="side-content-left" id="side-content-left"></div>
-    <div class="container">
-        <h1>fren?</h1>
-        <div id="player-list" class="player-list"></div>
-        <button class="audio-button" onclick="playAudio()">Wololo!</button>
+    <script loading="lazy" src="https://cdn.jsdelivr.net/npm/fireworks-js/dist/fireworks.js"></script>
+    <script loading="lazy" type="module" src="scripts/main.js"></script>
+    <audio loading="lazy" id="wololo-audio" src="media/wololo.mp3"></audio>
+    <div id="fireworks-container"></div>
+    <div class="flex-container">
+        <div class="side-content-left" id="side-content-left"></div>
+        <div class="container">
+            <h1>fren?</h1>
+            <div id="player-list" class="player-list"></div>
+            <button class="audio-button" onclick="playAudio()">Wololo!</button>
+        </div>
+        <div class="side-content-right" id="side-content-right"></div>
     </div>
-    <div class="side-content-right" id="side-content-right"></div>
-</div>
-<div class="footer">
-    <p>made with ♡ by <a href="https://github.com/inertiacreeping">momo</a> and <a href="https://github.com/tambow44">tambow</a></p>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/fireworks-js/dist/fireworks.js"></script>
-<!-- <script type="module" src="scripts/script.js"></script> -->
-<script type="module" src="scripts/main.js"></script>
+    <div class="footer">
+        <p>made with ♡ by <a href="https://github.com/inertiacreeping">momo</a> and <a href="https://github.com/tambow44">tambow</a></p>
+    </div>
 </body>
 </html>
