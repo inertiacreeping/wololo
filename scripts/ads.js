@@ -12,7 +12,6 @@ export function appendAds(ads, containerId) {
             <h3>${ad.title}</h3>
             <p>${ad.description}</p>
             <p><a href="${randomTwitchLink}">${ad.website}</a></p>
-            <p>Phone: ${ad.phone}</p>
         `;
         container.appendChild(adElement);
     });
