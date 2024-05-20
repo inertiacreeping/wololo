@@ -33,5 +33,12 @@
         "discordName": "NG Gaming",
         "discordLink": "https://discord.gg/4h4tEP4y",
         "steamId": "/steam/76561197960299476"
-    }
+    },
+    {
+        "name": "Mittens",
+        "twitch": "https://www.twitch.tv/hot_mitts",
+        "discordName": "The Bakery",
+        "discordLink": "https://discord.com/invite/H7cFc7fChK",
+        "steamID": "/steam/76561198037405654"
+    },
 ]
