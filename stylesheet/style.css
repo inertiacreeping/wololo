@@ -1,32 +1,33 @@
 .header-gif {
     max-height: 80px;
     display: block;
-    margin: 0 auto 20px; /* Center the image and add some margin below */
+    margin: 0 auto 20px;
 }
 
 .bold-text {
     font-weight: bold;
 }
+
 body {
-    background-color: #ffe4e1; /* light red */
+    background-color: #ffe4e1;
     font-family: 'Courier New', Courier, monospace;
-    color: #fff; /* white text */
+    color: #fff;
     text-align: center;
-    padding: 50px;
+    padding: 40px;
     overflow: hidden;
 }
 
 .flex-container {
     display: flex;
     justify-content: center;
-    align-items: stretch; /* Stretch items to the same height */
+    align-items: stretch;
     gap: 20px;
 }
 
 .container {
-    border: 5px solid #8b0000; /* dark red */
+    border: 5px solid #8b0000;
     padding: 20px;
-    background-color: #ff6347; /* tomato red */
+    background-color: #ff6347;
     box-shadow: 10px 10px 5px #888888;
     max-width: 800px;
     min-width: 700px;
@@ -38,39 +39,39 @@ body {
 }
 
 .side-content-left, .side-content-right {
-    width: 150px;
+    width: 200px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
 .promo-box {
-    background-color: #ffffe0; /* light yellow */
-    color: #000; /* Set text colour to black */
+    background-color: #ffffe0;
+    color: #000;
     padding: 10px;
     margin-bottom: 20px;
     border: 2px solid #000;
     text-align: left;
     font-family: 'Arial', sans-serif;
     font-size: 0.9em;
-    flex: 1; /* Allow boxes to stretch */
+    flex: 1;
 }
 
 .promo-box h3 {
     font-size: 1em;
     margin-bottom: 5px;
-    color: #000; /* Ensure header text is black */
+    color: #000;
 }
 
 .promo-box p {
     margin: 5px 0;
-    color: #000; /* Ensure paragraph text is black */
+    color: #000;
 }
 
 .promo-box a {
-    color: #0000ff; /* blue */
+    color: #0000ff;
     text-decoration: underline;
-    word-wrap: break-word; /* Ensure long URLs wrap */
+    word-wrap: break-word;
 }
 
 @media (max-width: 1200px) {
@@ -94,39 +95,55 @@ body {
 }
 
 h1 {
-    color: #fff; /* white text */
+    color: #fff;
     font-size: 3em;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
+
 p {
     font-size: 1.2em;
-    color: #fff; /* white text */
+    color: #fff;
 }
+
+sub {
+    font-size: 1em;
+    color #fff; 
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
 .player-list {
     text-align: left;
     margin-top: 30px;
 }
+
 .player {
     margin-bottom: 5px;
 }
+
 .player h2 {
     margin: 10px 0;
     display: inline-block;
     font-size: 1.2em;
-    color: #fff; /* white text */
-    margin: 2px 0; /* Reduce margin to decrease space between lines */
-    padding: 0; /* Ensure no extra padding */
+    color: #fff;
+    margin: 2px 0;
+    padding: 0;
 }
+
 .elo {
     font-size: 1em;
-    color: #fff; /* white text */
-    margin: 2px 0; /* Reduce margin to decrease space between lines */
-    padding: 0; /* Ensure no extra padding */
+    color: #fff;
+    margin: 2px 0;
+    padding: 0;
 }
+
 .live-status {
     display: inline-block;
     margin-left: 10px;
     font-weight: bold;
     font-size: 1.2em;
+
 }
 .icon {
     width: 24px;
@@ -134,47 +151,57 @@ p {
     vertical-align: middle;
     margin: 0 5px;
 }
+
 .discord-name {
     font-size: 1.2em;
 }
+
 .player-info {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
+
 .player-info div {
     flex: 1;
 }
+
 .discord-button, .twitch-button {
     display: flex;
     align-items: center;
     background-color: #000;
     color: #fff;
     font-weight: bold;
-    padding: 10px 20px; /* Increase padding to make the buttons taller */
+    padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
     max-width: 180px;
     min-height: 35px;
     white-space: nowrap;
 }
+
 .discord-button img, .twitch-button img {
     margin-right: 5px;
 }
+
 .twitch-button {
-    background-color: #593e84; /* Updated Twitch background color */
+    background-color: #593e84;
 }
+
 .twitch-button.offline {
     color: gray;
 }
+
 .live-text {
     color: rgba(255, 255, 255, 0.521);
     font-weight: bold;
 }
+
 .live-text.flash {
     animation: flash 2s infinite;
     font-size: 1.6em;
 }
+
 @keyframes flash {
     0%, 50%, 100% {
         color: red;
@@ -183,6 +210,7 @@ p {
         color: white;
     }
 }
+
 @keyframes rainbow {
     0% {
         background-position: 0% 50%;
@@ -194,6 +222,7 @@ p {
         background-position: 0% 50%;
     }
 }
+
 .audio-button {
     display: inline-block;
     font-family: 'Courier New', Courier, monospace;
@@ -211,21 +240,24 @@ p {
     animation: rainbow 8s ease infinite;
 }
 
-/* Blue Theme */
 .blue-theme body {
-    background-color: #e0f7fa; /* light blue */
-    color: #fff; /* white text */
+    background-color: #e0f7fa;
+    color: #fff;
 }
+
 .blue-theme .container {
     border: 5px solid #000;
-    background-color: #4682b4; /* steel blue */
+    background-color: #4682b4;
 }
+
 .blue-theme h1 {
-    color: #fff; /* white text */
+    color: #fff;
 }
+
 .blue-theme .audio-button {
     background-color: #00008b;
 }
+
 #fireworks-container {
     position: fixed;
     top: 0;
@@ -235,24 +267,27 @@ p {
     pointer-events: none;
     z-index: 0;
 }
+
 .footer {
     margin-top: 30px;
     font-size: 1em;
     color: #000;
     text-align: center;
-    overflow: hidden; /* Ensure the wave effect stays within the container */
+    overflow: hidden;
 }
+
 .footer a {
     color: #f370e8;
     text-decoration: none;
     font-weight: bold;
-    display: inline-block; /* Ensure each link can be individually animated */
+    display: inline-block;
     animation: wave 2s infinite;
 }
+
 .footer a:hover {
     text-decoration: underline;
 }
-/* Keyframes for the wavy animation */
+
 @keyframes wave {
     0%, 100% {
         transform: translateY(0);
@@ -267,13 +302,7 @@ p {
         transform: translateY(-5px);
     }
 }
-/* Add a slight delay to each link to create a wave effect */
+
 .footer a:nth-child(2) {
     animation-delay: 0.1s;
-}
-.footer a:nth-child(3) {
-    animation-delay: 0.2s;
-}
-.footer a:nth-child(4) {
-    animation-delay: 0.3s;
 }
