@@ -89,7 +89,7 @@ jobs:
             git config --global user.name 'github-actions[bot]'
             git config --global user.email 'github-actions[bot]@users.noreply.github.com'
             git remote set-url origin https://x-access-token:${{ secrets.CLASSIC_PAT }}@github.com/${{ github.repository }}
-            git add data/elo_data.json
-            git commit -m "Update ELO data"
+            git add .
+            git commit -m "Update data json files"
             git push origin HEAD:main
           fi
