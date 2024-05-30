@@ -1,4 +1,4 @@
-name: Update ELO Data
+name: Update Player and ELO Data
 
 on:
   schedule:
@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  update-elo-data:
+  update-data:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -92,6 +92,4 @@ jobs:
             git add data/elo_data.json
             git commit -m "Update ELO data"
             git push origin HEAD:main
-          else
-            echo "no changes to update in Git"
           fi
