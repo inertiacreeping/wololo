@@ -1,51 +1,58 @@
 [
-    {
-        "name": "inertiacreeping",
-        "twitch": "https://www.twitch.tv/inertiacreeping",
-        "discordName": "Low ELO Legends",
-        "discordLink": "https://discord.gg/XXvQE4uY2m",
-        "steamId": "/steam/76561198067966567"
-    },
-    {
-        "name": "Shider",
-        "twitch": "https://www.twitch.tv/shiderplays",
-        "discordName": "ShiderPlays",
-        "discordLink": "https://discord.gg/dzXthPsvKQ",
-        "steamId": "/steam/76561198151727332"
-    },
-    {
-        "name": "Tambow",
-        "twitch": "https://www.twitch.tv/ttambow",
-        "discordName": "Tambourine Town",
-        "discordLink": "https://discord.gg/yfyw3ZRUua",
-        "steamId": "/steam/76561198040642066"
-    },
-    {
-        "name": "Chestnut",
-        "twitch": "https://www.twitch.tv/chestnutplace77",
-        "discordName": "The Nutshack",
-        "discordLink": "https://discord.gg/BGEA4HxY8u",
-        "steamId": "/steam/76561198403361404"
-    },
-    {
-        "name": "Nerf Dermer",
-        "twitch": "https://www.twitch.tv/nerf_dermer",
-        "discordName": "NG Gaming",
-        "discordLink": "https://discord.gg/4h4tEP4y",
-        "steamId": "/steam/76561197960299476"
-    },
-    {
-        "name": "Mittens",
-        "twitch": "https://www.twitch.tv/hot_mitts",
-        "discordName": "The Bakery",
-        "discordLink": "https://discord.com/invite/H7cFc7fChK",
-        "steamId": "/steam/76561198037405654"
-    },
-    {
-        "name": "Mc West",
-        "twitch":"https://www.twitch.tv/mcwest93",
-        "discordName": "Age of Drinks",
-        "discordLink": "https://discord.com/invite/H7cFc7fChK",
-        "steamId": "/steam/76561199261208776"    
-    }
+  {
+    "name": "inertiacreeping",
+    "twitch": "https://www.twitch.tv/inertiacreeping",
+    "discordName": "Low ELO Legends",
+    "discordLink": "https://discord.gg/XXvQE4uY2m",
+    "steamId": "/steam/76561198067966567",
+    "status": "offline"
+  },
+  {
+    "name": "Shider",
+    "twitch": "https://www.twitch.tv/shiderplays",
+    "discordName": "ShiderPlays",
+    "discordLink": "https://discord.gg/dzXthPsvKQ",
+    "steamId": "/steam/76561198151727332",
+    "status": "offline"
+  },
+  {
+    "name": "Tambow",
+    "twitch": "https://www.twitch.tv/ttambow",
+    "discordName": "Tambourine Town",
+    "discordLink": "https://discord.gg/yfyw3ZRUua",
+    "steamId": "/steam/76561198040642066",
+    "status": "live"
+  },
+  {
+    "name": "Chestnut",
+    "twitch": "https://www.twitch.tv/chestnutplace77",
+    "discordName": "The Nutshack",
+    "discordLink": "https://discord.gg/BGEA4HxY8u",
+    "steamId": "/steam/76561198403361404",
+    "status": "offline"
+  },
+  {
+    "name": "Nerf Dermer",
+    "twitch": "https://www.twitch.tv/nerf_dermer",
+    "discordName": "NG Gaming",
+    "discordLink": "https://discord.gg/4h4tEP4y",
+    "steamId": "/steam/76561197960299476",
+    "status": "offline"
+  },
+  {
+    "name": "Mittens",
+    "twitch": "https://www.twitch.tv/hot_mitts",
+    "discordName": "The Bakery",
+    "discordLink": "https://discord.com/invite/H7cFc7fChK",
+    "steamId": "/steam/76561198037405654",
+    "status": "offline"
+  },
+  {
+    "name": "Mc West",
+    "twitch": "https://www.twitch.tv/mcwest93",
+    "discordName": "Age of Drinks",
+    "discordLink": "https://discord.com/invite/H7cFc7fChK",
+    "steamId": "/steam/76561199261208776",
+    "status": "offline"
+  }
 ]
