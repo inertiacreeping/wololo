@@ -2,7 +2,7 @@ name: Update ELO Data
 
 on:
   schedule:
-    - cron: '* * 1 * *' # Runs every 5mins
+    - cron: '*/1 * * * *' # Runs every minute
   push:
     branches:
       - main
@@ -17,7 +17,46 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get install -y jq
 
-      - name: Fetch ELO Data and Update JSON
+      - name: Update Twitch Status in `PLAYERS.JSON`
+        env: 
+          TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_ACCESS_TOKEN: ${{ secrets.TWITCH_ACCESS_TOKEN }}
+        run: |
+          set -e
+          TWITCH_CLIENT_ID=${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_ACCESS_TOKEN=${{ secrets.TWITCH_ACCESS_TOKEN }}
+          TWITCH_API_URL=https://api.twitch.tv/helix/streams
+          TWITCH_USER_NAMES=()
+
+          get_twitch_user_status() {
+            local userName=$1
+            response=$(curl -s -G "$TWITCH_API_URL" \
+              --data-urlencode "user_login=$userName" \
+              -H "Client-ID: $TWITCH_CLIENT_ID" \
+              -H "Authorization: Bearer $TWITCH_ACCESS_TOKEN")
+          
+            if [ "$(echo "$response" | jq '.data | length')" -eq 0 ]; then
+              echo 'offline'
+            else
+              echo "$response" | jq -r '.data[0].type | tostring'
+            fi
+          }
+          
+          while IFS= read -r line; do
+            twitchUserName=$(echo "$line" | jq -r '.twitch | capture("https://www.twitch.tv/(?<username>.+)") | .username')
+            [ -n "$twitchUserName" ] && TWITCH_USER_NAMES+=("$twitchUserName")
+          done < <(jq -c '.[]' data/players.json)
+          
+          for userName in "${TWITCH_USER_NAMES[@]}"; do
+            userStatus=$(get_twitch_user_status "$userName")
+            echo userName is $userName
+            echo userStatus is $userStatus
+            jq --arg name "$userName" --arg status "$userStatus" \
+              'map(if .twitch | capture("https://www.twitch.tv/(?<username>.+)") | .username == $name then .status = $status else . end)' \
+            data/players.json > tmp.json && mv tmp.json data/players.json
+          done
+
+      - name: Update ELO Data in `PLAYERS.JSON`
         run: |
           set -e
           STEAM_IDS=()
@@ -54,4 +93,6 @@ jobs:
             git add data/elo_data.json
             git commit -m "Update ELO data"
             git push origin HEAD:main
+          else
+            echo "no changes to update in Git"
           fi
