@@ -1,6 +1,5 @@
 import players from './playersData.js';
 
-
 export async function fetchEloData() {
     try {
         const response = await fetch('../data/elo_data.json');
