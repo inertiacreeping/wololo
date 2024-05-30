@@ -22,13 +22,8 @@ export async function checkLiveStatus() {
             console.error(`Element with ID twitch-${player.name} not found.`);
             continue;
         }
-
-        const twitchUserName = player.twitch.slice(player.twitch.lastIndexOf('/') + 1);
-        const twitchApiUrl = `https://flutes.nz/checkTwitchUsersLiveStatus?userName=${twitchUserName}`;
         try {
-            const response = await fetch(twitchApiUrl);
-            const data = await response.json();
-            updateStatusElement(statusElement, data.status);
+            updateStatusElement(statusElement, player.status);
         } catch (error) {
             console.error(`Error fetching status for ${player.name}: `, error);
             const statusSpan = statusElement.querySelector('.live-text');
