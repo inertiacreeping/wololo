@@ -53,7 +53,6 @@ jobs:
               'map(if .twitch | capture("https://www.twitch.tv/(?<username>.+)") | .username == $name then .status = $status else . end)' \
             data/players.json > tmp.json && mv tmp.json data/players.json
           done
-          more data/players.json
 
       - name: Update ELO Data in `PLAYERS.JSON`
         run: |
